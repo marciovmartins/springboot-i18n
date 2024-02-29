@@ -1,0 +1,11 @@
+
+springdoc:
+  swagger-ui:
+    path: /api-docs
+  api-docs:
+    path: /openapi.json
+
+logging:
+  level:
+    root: ERROR
+    dev.martins.marcio.studies.springbooti18n: INFO
