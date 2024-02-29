@@ -68,11 +68,7 @@ mvn spring-boot:run
 <h3 id="how-to-run-docker">Docker</h3>
 
 ```shell
-docker-compose up -d
-```
-
-```shell
-docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config -v data:/root/.m2 --network=springboot-i18n -p 8080:8080 --name=/springboot-i18n-1 --label com.docker.compose.project=springboot-i18n maven:3.8.8-eclipse-temurin-21-alpine mvn spring-boot:run
+docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config -v data:/root/.m2 -p 8080:8080 maven:3.8.8-eclipse-temurin-21-alpine mvn spring-boot:run
 ```
 
 <a href="#table-of-contents" title="Go to table of contents">Back to Top</a>
@@ -98,10 +94,6 @@ mvn test
 Unit tests + Integration tests:
 
 ```shell
-docker-compose up -d
-```
-
-```shell
 mvn verify
 ```
 
@@ -112,13 +104,13 @@ mvn verify
 Unit tests:
 
 ```shell
-docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config -v data:/root/.m2 --network=springboot-i18n_main -p 8080:8080 --name=/springboot-i18n-app-1 --label com.docker.compose.project=springboot-i18n maven:3.8.8-eclipse-temurin-21-alpine mvn test
+docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config -v data:/root/.m2 -p 8080:8080 maven:3.8.8-eclipse-temurin-21-alpine mvn test
 ```
 
 Unit tests + Integration tests:
 
 ```shell
-docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/docker-compose.yml:/docker-compose.yml -v $PWD/config:/config -v data:/root/.m2 --network=springboot-i18n_main -p 8080:8080 --name=/springboot-i18n-app-1 --label com.docker.compose.project=springboot-i18n maven:3.8.8-eclipse-temurin-21-alpine mvn verify
+docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config -v data:/root/.m2 -p 8080:8080 maven:3.8.8-eclipse-temurin-21-alpine mvn verify
 ```
 
 <a href="#table-of-contents" title="Go to table of contents">Back to Top</a>
