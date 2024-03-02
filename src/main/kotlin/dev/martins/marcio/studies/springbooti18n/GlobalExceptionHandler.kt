@@ -1,7 +1,7 @@
 package dev.martins.marcio.studies.springbooti18n
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -38,11 +38,10 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         request: WebRequest
     ): ResponseEntity<Any>? {
         val message = messageSource.getMessage("jakarta.validation.constraints.NotNull.message", null, request.locale)
-        val pointer = (ex.cause as MissingKotlinParameterException).parameter.name
 
-        val errors = listOf(
-            MyProblemDetail.Error(detail = message, pointer = pointer)
-        )
+        val errors = (ex.cause as MismatchedInputException).path.map {
+            MyProblemDetail.Error(detail = message, pointer = it.fieldName)
+        }
 
         return handleValidationFailure(ProblemDetail.forStatus(status), errors, request.locale)
     }
