@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="" th:lang="${#locale.language}" th:fragment="index (errorFile)">
+<head>
+    <title th:include="${errorFile} :: headTitle"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        table, th, td {
+            border: 1px solid #000;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table th {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1 th:include="${errorFile} :: errorTitle"></h1>
+<div th:include="${errorFile} :: errorDescription"></div>
+</body>
+</html>

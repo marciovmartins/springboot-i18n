@@ -15,13 +15,13 @@ class PersonController(
     private val people: MutableMap<String, Person> = mutableMapOf()
 
     @PutMapping("/{id}")
-    fun createPerson(@PathVariable id: String, @RequestBody person: Person?): ResponseEntity<Any> {
+    fun createOrReplacePerson(@PathVariable id: String, @RequestBody person: Person?): ResponseEntity<Any> {
         this.people[id] = person!!
         return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/{id}")
-    fun getPerson(@PathVariable id: String): ResponseEntity<Person> {
+    fun retrievePerson(@PathVariable id: String): ResponseEntity<Person> {
         val person = people[id]
         if (person === null) return ResponseEntity.notFound().build()
         return ResponseEntity.ok(person)

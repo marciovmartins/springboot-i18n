@@ -52,7 +52,7 @@ src/main/kotlin/dev/martins/marcio/studies/springbooti18n/SpringbootI18nApplicat
 
 Execute it clicking on the "play" button and after that in Run.
 
-<img src="./docs/assets/readme-how-to-run-intellij.png" alt="find the StockMgmtApplication and execute it"/>
+<img src="./docs/assets/readme-how-to-run-intellij.png" alt="find the springbooti18nApplication and execute it"/>
 
 In case of an error for missing dependencies, reload it with maven command "Reload All Maven Projects":
 
