@@ -19,13 +19,14 @@
     </ul>
   </li>
   <li>
-    🚦 <a href="#how-to-run" title="Go to how to test bookmark">How to Test</a>
+    🚦 <a href="#how-to-test" title="Go to how to test bookmark">How to Test</a>
     <ul>
       <li>
         <a href="#how-to-test-intellij" title="Go to how to test intellij bookmark">Intellij</a>,
         <a href="#how-to-test-maven" title="Go to how to test maven bookmark">Maven</a>,
         <a href="#how-to-test-docker" title="Go to how to test docker bookmark">Docker</a>
       </li>
+      <li><a href="#how-to-test-manually" title="Go to how to test manually bookmark">Manually</a></li>
     </ul>
   </li>
   <li>📖 <a href="#docs" title="Go to documentation bookmark">Documentation</a></li>
@@ -117,8 +118,10 @@ docker run --rm -v $PWD/src:/src -v $PWD/pom.xml:/pom.xml -v $PWD/config:/config
 
 <h3 id="how-to-test-manually">Manually</h3>
 
+There are scripts to help you to make requests to the application. Check the steps below:
+
 The application must be <a href="#how-to-run" title="Go to how to run bookmark">running</a>, check
-the <a href="#docs" title="Go to documentation bookmark">documentation</a> and check
+the <a href="#docs" title="Go to documentation bookmark">documentation section</a> for some useful links and check
 the <a href="src/test/intellij/scripts" title="Go to intellij scripts folder">intellij http client scripts folder</a>
 which already contains requests scripts.
 

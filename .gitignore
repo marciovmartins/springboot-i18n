@@ -1,3 +1,6 @@
+/config/
+/src/test/intellij/scripts/http-client.private.env.json
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

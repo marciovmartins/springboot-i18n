@@ -1,0 +1,15 @@
+### create a person
+PUT http://localhost:8080/people/{{$uuid}}
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "age": 18
+}
+
+> {%
+    client.global.set("person_url", request.url())
+%}
+
+### get a person
+GET {{person_url}}
