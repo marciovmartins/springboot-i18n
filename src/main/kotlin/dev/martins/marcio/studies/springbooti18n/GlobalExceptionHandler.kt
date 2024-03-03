@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatusCode
 import org.springframework.http.ProblemDetail
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
@@ -44,6 +45,26 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         }
 
         return handleValidationFailure(ProblemDetail.forStatus(status), errors, request.locale)
+    }
+
+    /**
+     * For jakarta validations using @Valid annotation
+     */
+    override fun handleMethodArgumentNotValid(
+        ex: MethodArgumentNotValidException,
+        headers: HttpHeaders,
+        status: HttpStatusCode,
+        request: WebRequest
+    ): ResponseEntity<Any>? {
+        val errors = ex.fieldErrors
+            .map {
+                MyProblemDetail.Error(
+                    detail = it.defaultMessage ?: "Default message not provided",
+                    pointer = it.field,
+                )
+            }
+
+        return handleValidationFailure(ex.body, errors, request.locale)
     }
 
     private fun handleValidationFailure(

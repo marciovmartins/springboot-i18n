@@ -1,5 +1,7 @@
 package dev.martins.marcio.studies.springbooti18n
 
+import jakarta.validation.Valid
+import jakarta.validation.constraints.Size
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -10,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/people")
-class PersonController(
-) {
+class PersonController {
     private val people: MutableMap<String, Person> = mutableMapOf()
 
     @PutMapping("/{id}")
-    fun createOrReplacePerson(@PathVariable id: String, @RequestBody person: Person?): ResponseEntity<Any> {
+    fun createOrReplacePerson(@PathVariable id: String, @RequestBody @Valid person: Person?): ResponseEntity<Any> {
         this.people[id] = person!!
         return ResponseEntity.noContent().build()
     }
@@ -28,6 +29,7 @@ class PersonController(
     }
 
     data class Person(
+        @field:Size(min = 1, max = 250)
         val name: String,
         val age: Int,
     )

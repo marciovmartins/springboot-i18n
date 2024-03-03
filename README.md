@@ -36,7 +36,28 @@
 
 <h2 id="about">❓ About</h2>
 
-Study about Spring Boot with i18n and Problem Detail
+Study about Spring Boot with i18n and Problem Detail.
+
+The default error message do not provide useful information. The ResponseEntityExceptionHandler is extended and expanded
+the error information. Also, an HTML page was added with a human-readable documentation that can be followed and get
+more details about the error.
+
+The `problem+detail` response was expanded to contain useful information about the errors:
+
+```json
+{
+  "errors": [
+    {
+      "detail": "size must be between 1 and 250",
+      "pointer": "name"
+    }
+  ],
+  "type": "http://localhost:8080/api-docs/errors/v1/validation-failure",
+  "title": "Validation failure",
+  "status": 400,
+  "instance": "/people/8c78fa21-cc03-4ef1-8882-cd51e208b7d2"
+}
+```
 
 <a href="#table-of-contents" title="Go to table of contents">Back to Top</a>
 
