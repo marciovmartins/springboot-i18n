@@ -1,6 +1,7 @@
 package dev.martins.marcio.studies.springbooti18n
 
 import jakarta.validation.Valid
+import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.Size
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,6 +32,7 @@ class PersonController {
     data class Person(
         @field:Size(min = 1, max = 250)
         val name: String,
+        @field:Min(0)
         val age: Int,
     )
 }

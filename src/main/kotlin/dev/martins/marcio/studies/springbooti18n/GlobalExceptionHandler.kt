@@ -1,7 +1,7 @@
 package dev.martins.marcio.studies.springbooti18n
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.exc.MismatchedInputException
+import com.fasterxml.jackson.databind.JsonMappingException
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -37,11 +37,20 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         headers: HttpHeaders,
         status: HttpStatusCode,
         request: WebRequest
-    ): ResponseEntity<Any>? {
-        val message = messageSource.getMessage("jakarta.validation.constraints.NotNull.message", null, request.locale)
+    ): ResponseEntity<Any> {
+        val errors = when (val cause = ex.cause) {
+            is JsonMappingException -> cause.path.map {
+                MyProblemDetail.Error(
+                    detail = messageSource.getMessage(
+                        "jakarta.validation.constraints.NotNull.message", null, request.locale
+                    ),
+                    pointer = it.fieldName
+                )
+            }
 
-        val errors = (ex.cause as MismatchedInputException).path.map {
-            MyProblemDetail.Error(detail = message, pointer = it.fieldName)
+            else -> {
+                listOf(MyProblemDetail.Error(detail = "Unmapped error: ${cause?.message}", pointer = "Unknown"))
+            }
         }
 
         return handleValidationFailure(ProblemDetail.forStatus(status), errors, request.locale)
@@ -55,7 +64,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         headers: HttpHeaders,
         status: HttpStatusCode,
         request: WebRequest
-    ): ResponseEntity<Any>? {
+    ): ResponseEntity<Any> {
         val errors = ex.fieldErrors
             .map {
                 MyProblemDetail.Error(

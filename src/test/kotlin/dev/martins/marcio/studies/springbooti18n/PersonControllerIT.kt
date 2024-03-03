@@ -67,7 +67,7 @@ class PersonControllerIT(
                 testDescription = "missing name property and locale 'en'",
                 personPayload = """
                     {
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("en"),
@@ -82,7 +82,7 @@ class PersonControllerIT(
                 testDescription = "missing name property and locale 'pt-br'",
                 personPayload = """
                     {
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("pt_BR"),
@@ -98,7 +98,7 @@ class PersonControllerIT(
                 personPayload = """
                     {
                         "name": "",
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("en"),
@@ -114,7 +114,7 @@ class PersonControllerIT(
                 personPayload = """
                     {
                         "name": "",
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("pt_BR"),
@@ -130,7 +130,7 @@ class PersonControllerIT(
                 personPayload = """
                     {
                         "name": "${"x".repeat(251)}",
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("en"),
@@ -146,7 +146,7 @@ class PersonControllerIT(
                 personPayload = """
                     {
                         "name": "${"x".repeat(251)}",
-                        "age": 17
+                        "age": 21
                     }
                 """.trimIndent(),
                 locale = Locale.of("pt_BR"),
@@ -155,6 +155,38 @@ class PersonControllerIT(
                     detail = "tamanho deve ser entre 1 e 250",
                     errorCode = "00002",
                     pointer = "name",
+                )
+            ),
+            argument(
+                testDescription = "negative age property and locale 'en'",
+                personPayload = """
+                    {
+                        "name": "John Doe",
+                        "age": -1
+                    }
+                """.trimIndent(),
+                locale = Locale.of("en"),
+                title = "Validation failure",
+                expectedError = ExpectedError(
+                    detail = "must be greater than or equal to 0",
+                    errorCode = "00003",
+                    pointer = "age",
+                )
+            ),
+            argument(
+                testDescription = "negative age property and locale 'pt-br'",
+                personPayload = """
+                    {
+                        "name": "John Doe",
+                        "age": -1
+                    }
+                """.trimIndent(),
+                locale = Locale.of("pt_BR"),
+                title = "Falha de validação",
+                expectedError = ExpectedError(
+                    detail = "deve ser maior que ou igual à 0",
+                    errorCode = "00003",
+                    pointer = "age",
                 )
             ),
         )
